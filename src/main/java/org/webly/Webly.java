@@ -1,5 +1,11 @@
 package org.webly;
 
+import org.webly.io.CSSGenerator;
+import org.webly.io.HtmlWriter;
+import org.webly.structures.Body;
+import org.webly.structures.Element;
+import org.webly.utilities.Server;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,7 +35,7 @@ public class Webly {
      * @param filepath Filbanen for HTML-filen som skal genereres.
      * @return En ny Webly-instans.
      */
-    public static Webly create(String filepath) {
+    public static Webly createApp(String filepath) {
         return new Webly(filepath);
     }
 
@@ -38,7 +44,7 @@ public class Webly {
      *
      * @param element En eller flere Element-objekter som skal legges til i Body-objektet.
      */
-    public void add(Element... element) {
+    public void addElement(Element... element) {
         for (Element e : element) {
             body.addElement(e);
         }
@@ -69,7 +75,7 @@ public class Webly {
      *
      * @param port Portnummeret som HTTP-serveren skal lytte på.
      */
-    public void start(int port) {
+    public void startServerOnPort(int port) {
         try {
             WriteCSS();
             CompileAll();

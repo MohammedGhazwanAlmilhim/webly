@@ -1,4 +1,5 @@
-package org.webly;
+package org.webly.structures;
+
 import java.util.ArrayList;
 import java.util.List;
 

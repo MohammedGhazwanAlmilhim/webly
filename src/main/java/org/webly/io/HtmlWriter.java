@@ -1,4 +1,6 @@
-package org.webly;
+package org.webly.io;
+
+import org.webly.structures.Body;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

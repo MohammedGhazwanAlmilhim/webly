@@ -1,4 +1,4 @@
-package org.webly;
+package org.webly.structures;
 
 import java.util.*;
 
@@ -15,7 +15,7 @@ public class Element {
     /**
      * Konstruktør for å initialisere et HTML-element med angitt tag og tekst.
      *
-     * @param tag Navnet på HTML-taggen.
+     * @param tag  Navnet på HTML-taggen.
      * @param text Teksten som skal vises i HTML-elementet.
      */
     public Element(String tag, String text) {
@@ -27,7 +27,7 @@ public class Element {
     }
 
     /**
-     * Metoden returnerer navnet på HTML-taggen for dette elementet.
+     * Returnerer navnet på HTML-taggen for dette elementet.
      *
      * @return Taggen for dette elementet.
      */
@@ -36,19 +36,26 @@ public class Element {
     }
 
     /**
-     * Metoden legger til en CSS-stil til dette elementet.
+     * Legger til en CSS-stil til dette elementet.
      *
-     * @param property Navnet på CSS-egenskapen.
-     * @param value Verdien til CSS-egenskapen.
+     * @param styleString Strengen som inneholder stilen i formatet "egenskap1: verdi1; egenskap2: verdi2; ..."
      * @return Dette Element-objektet.
      */
-    public Element style(String property, String value) {
-        style.put(property, value);
+    public Element setStyle(String styleString) {
+        String[] styleRules = styleString.split(";");
+        for (String rule : styleRules) {
+            String[] parts = rule.trim().split(":");
+            if (parts.length == 2) {
+                String property = parts[0].trim();
+                String value = parts[1].trim();
+                style.put(property, value);
+            }
+        }
         return this;
     }
 
     /**
-     * Metoden returnerer en map av stiler som er lagt til dette elementet.
+     * Returnerer en map av stiler som er lagt til dette elementet.
      *
      * @return Map av stiler for dette elementet.
      */
@@ -57,7 +64,7 @@ public class Element {
     }
 
     /**
-     * Metoden gir en strengrepresentasjon av dette HTML-elementet, inkludert dets barn.
+     * Returnerer en strengrepresentasjon av dette HTML-elementet, inkludert dets barn.
      *
      * @return En strengrepresentasjon av dette HTML-elementet.
      */
@@ -71,14 +78,14 @@ public class Element {
 
         sb.append(">");
         for (Element child : children) {
-            sb.append("\n" + "  ").append(child.toString());
+            sb.append("\n").append("  ").append(child.toString());
         }
-        sb.append(text).append(" "+ "\n"+"</").append(tag).append(">");
+        sb.append(text).append("\n").append("</").append(tag).append(">");
         return sb.toString();
     }
 
     /**
-     * Metoden returnerer verdien av angitt attributt.
+     * Returnerer verdien av angitt attributt.
      *
      * @param name Navnet på attributtet.
      * @return Verdien til det angitte attributtet.
@@ -88,36 +95,55 @@ public class Element {
     }
 
     /**
-     * Metoden legger til et attributt til dette elementet.
+     * Legger til et attributt til dette elementet.
      *
-     * @param name Navnet på attributtet.
+     * @param name  Navnet på attributtet.
      * @param value Verdien til attributtet.
      * @return Dette Element-objektet.
      */
-    public Element attribute(String name, String value) {
+    public Element setAttribute(String name, String value) {
         attributes.put(name, value);
         return this;
     }
 
     /**
-     * Metoden oppretter et nytt Element-objekt med angitt tag.
+     * Oppretter et nytt Element-objekt med angitt tag.
      *
      * @param tag Navnet på HTML-taggen.
      * @return Et nytt Element-objekt.
      */
-    public static Element create(String tag) {
+    public static Element createInstance(String tag) {
         return new Element(tag, "");
     }
 
     /**
-     * Metoden oppdaterer teksten for dette elementet.
+     * Oppdaterer teksten for dette elementet.
      *
      * @param text Den nye teksten for dette elementet.
      * @return Dette Element-objektet.
      */
-    public Element with(String text) {
+    public Element setText(String text) {
         this.text = text;
         return this;
+    }
+
+    /**
+     * Legger til et Element til listen over elementer i dette Element-objektet.
+     *
+     * @param elements Elementene som skal legges til.
+     */
+    public void addElement(Element... elements) {
+        children.addAll(Arrays.asList(elements));
+    }
+
+    /**
+     * Returnerer en liste av barn elementer av dette Elementet.
+     * Barn elementer er elementer som er nøstet innenfor dette elementet i HTML strukturen.
+     *
+     * @return en Liste av barn Element objekter.
+     */
+    public List<Element> getChildren() {
+        return this.children;
     }
 
 }
