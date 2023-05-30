@@ -6,12 +6,30 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * Denne klassen genererer CSS-regler basert på stilen definert i HTML-elementer og skriver dem til en CSS-fil.
+ */
 public class CSSGenerator {
+    /**
+     * Privat konstruktør for å opprette en CSSGenerator instans.
+     */
     private CSSGenerator() {
     }
+
+    /**
+     * Metoden oppretter en ny CSSGenerator instans.
+     *
+     * @return En ny CSSGenerator instans.
+     */
     public static CSSGenerator CreateCSSGenerator() {
         return new CSSGenerator();
     }
+
+    /**
+     * Metoden genererer CSS-regler fra gitt Body-objekt og skriver dem til en CSS-fil.
+     *
+     * @param body Body-objektet som inneholder HTML-elementer med stil.
+     */
     public static void cssWriter(Body body) {
         // Opprett en ArrayList for å lagre CSS-reglene
         ArrayList<String> cssRules = new ArrayList<>();

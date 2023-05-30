@@ -4,27 +4,49 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Webly er en klasse som forenkler prosessen med å generere og kjøre en enkel webapplikasjon.
+ */
 public class Webly {
     private final String FILENAME;
     private static Body body;
     private static Server server;
 
+    /**
+     * Privat konstruktør for å opprette en Webly-instans med angitt filnavn.
+     *
+     * @param FILENAME Filnavnet for HTML-filen som skal genereres.
+     */
     private Webly(String FILENAME) {
         server = Server.createServer(FILENAME);
         body = Body.CreateBody();
         this.FILENAME = FILENAME;
     }
 
+    /**
+     * Metoden oppretter en ny Webly-instans med angitt filnavn.
+     *
+     * @param filepath Filbanen for HTML-filen som skal genereres.
+     * @return En ny Webly-instans.
+     */
     public static Webly create(String filepath) {
         return new Webly(filepath);
     }
 
+    /**
+     * Metoden legger til Element-objekter i Body-objektet til Webly-instansen.
+     *
+     * @param element En eller flere Element-objekter som skal legges til i Body-objektet.
+     */
     public void add(Element... element) {
         for (Element e : element) {
             body.addElement(e);
         }
     }
 
+    /**
+     * Metoden kompilerer alle HTML- og CSS-filer ved å skrive dem til disk.
+     */
     public void CompileAll() {
         try {
             HtmlWriter htmlWriter = HtmlWriter.CreateWriter(FILENAME);
@@ -35,11 +57,18 @@ public class Webly {
         }
     }
 
+    /**
+     * Metoden skriver CSS-regler til CSS-filen basert på Body-objektet.
+     */
     public void WriteCSS() {
         CSSGenerator.cssWriter(body);
     }
 
-
+    /**
+     * Metoden starter webapplikasjonen ved å generere HTML- og CSS-filer, åpne webleseren og starte HTTP-serveren.
+     *
+     * @param port Portnummeret som HTTP-serveren skal lytte på.
+     */
     public void start(int port) {
         try {
             WriteCSS();
@@ -52,6 +81,4 @@ public class Webly {
             System.err.println(e);
         }
     }
-
-
 }
