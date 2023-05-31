@@ -15,8 +15,8 @@ import java.net.URISyntaxException;
  */
 public class Webly {
     private final String FILENAME;
-    private static Body body;
-    private static Server server;
+    private final Body body;
+    private final Server server;
 
     /**
      * Privat konstruktør for å opprette en Webly-instans med angitt filnavn.
@@ -24,8 +24,8 @@ public class Webly {
      * @param FILENAME Filnavnet for HTML-filen som skal genereres.
      */
     private Webly(String FILENAME) {
-        server = Server.createServer(FILENAME);
-        body = Body.CreateBody();
+        this.server = Server.createServer(FILENAME);
+        this.body = Body.createBody();
         this.FILENAME = FILENAME;
     }
 
@@ -53,7 +53,7 @@ public class Webly {
     /**
      * Metoden kompilerer alle HTML- og CSS-filer ved å skrive dem til disk.
      */
-    public void CompileAll() {
+    private void compileAll() {
         try {
             HtmlWriter htmlWriter = HtmlWriter.CreateWriter(FILENAME);
             htmlWriter.writeElement(body);
@@ -66,7 +66,7 @@ public class Webly {
     /**
      * Metoden skriver CSS-regler til CSS-filen basert på Body-objektet.
      */
-    public void WriteCSS() {
+    private void writeCSS() {
         CSSGenerator.cssWriter(body);
     }
 
@@ -77,8 +77,8 @@ public class Webly {
      */
     public void startServerOnPort(int port) {
         try {
-            WriteCSS();
-            CompileAll();
+            writeCSS();
+            compileAll();
             Server.openWebpage(new URI("http://localhost:" + port + "/" + FILENAME));
             System.out.println("Opened webpage in browser at http://localhost:" + port + "/" + FILENAME);
             server.StartServer(port);

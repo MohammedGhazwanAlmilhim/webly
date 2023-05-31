@@ -17,11 +17,11 @@ public class Body {
     }
 
     /**
-     * Metoden oppretter et nytt Body objekt.
+     * Factory-metode for å opprette et nytt Body objekt.
      *
      * @return Et nytt Body objekt.
      */
-    static public Body CreateBody() {
+    public static Body createBody() {
         return new Body();
     }
 
@@ -39,7 +39,7 @@ public class Body {
      *
      * @return En streng som representerer en link til stilarket.
      */
-    public String getStyleSheetLink() {
+    private String getStyleSheetLink() {
         return "<link rel=\"stylesheet\" href=\"style.css\">";
     }
 
