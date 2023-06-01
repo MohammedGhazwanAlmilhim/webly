@@ -1,0 +1,78 @@
+@startuml
+!include theme.puml
+top to bottom direction
+
+
+class Body {
+  - Body(): 
+  - elements: List<Element>
+  + createBody(): Body
+  + addElement(Element): void
+  + toString(): String
+  elements: List<Element>
+  styleSheetLink: String
+}
+
+class CSSGenerator {
+  - CSSGenerator(): 
+  + createCSSGenerator(): CSSGenerator
+  + cssWriter(Body): void
+  - cssWriterRecursive(Element, ArrayList<String>, HashSet<String>): void
+}
+
+class Element {
+  + Element(String, String): 
+  - children: List<Element>
+  - tag: String
+  - text: String
+  - style: Map<String, String>
+  + setAttribute(String, String): Element
+  + toString(): String
+  + getAttribute(String): String
+  + createInstance(String): Element
+  + addElement(Element[]): void
+  text: String
+  children: List<Element>
+  style: Map<String, String>
+  tag: String
+}
+
+class HtmlWriter {
+  - HtmlWriter(String): 
+  + CreateWriter(String): HtmlWriter
+  + close(): void
+  + writeElement(Body): void
+}
+
+class Server {
+  - Server(String): 
+  - readFile(String): String
+  + StartServer(int): void
+  - readHttpRequest(InputStream): String
+  - ServerLoop(ServerSocket): void
+  - handleRequest(Socket, String, String): void
+  + openWebpage(URI): void
+  - sendHttpResponse(OutputStream, String, String): void
+  + createServer(String): Server
+}
+
+class Webly {
+  - Webly(String): 
+  - compileAll(): void
+  + startServerOnPort(int): void
+  + createApp(String): Webly
+  + addElement(Element[]): void
+  - writeCSS(): void
+  FILENAME: String
+  body: Body
+  server: Server
+}
+
+Body "1" -- "mange" Element : inneholder >
+Webly "1" -- "1" Body : har >
+Webly "1" -- "1" Server : har >
+Webly "1" -- "*" Element : legger til >
+Webly "1" -- "1" HtmlWriter : bruker >
+Webly "1" -- "1" CSSGenerator : bruker >
+Element "1" -- "mange" Element : har barn >
+@enduml

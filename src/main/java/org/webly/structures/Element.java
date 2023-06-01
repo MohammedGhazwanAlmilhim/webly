@@ -12,6 +12,7 @@ public class Element {
     private final Map<String, String> style;
     private final List<Element> children;
 
+
     /**
      * Konstruktør for å initialisere et HTML-element med angitt tag og tekst.
      *
