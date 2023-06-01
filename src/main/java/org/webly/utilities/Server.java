@@ -41,7 +41,7 @@ public class Server {
      */
     public void StartServer(int port) throws IOException {
         ServerSocket server = new ServerSocket(port);
-        System.out.println("Server started. Listening on port " + port + "...");
+        System.out.println("Server startet. Lytter på port " + port + "...");
         ServerLoop(server);
     }
 
@@ -100,7 +100,7 @@ public class Server {
         try {
             responseBody = readFile(file);
         } catch (Exception e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("Feil ved lesing av fil: " + e.getMessage());
         }
         sendHttpResponse(client.getOutputStream(), contentType, responseBody);
     }

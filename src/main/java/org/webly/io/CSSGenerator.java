@@ -10,34 +10,34 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * The CSSGenerator class generates CSS rules based on the style defined in HTML elements and writes them to a CSS file.
+ * CSSGenerator-klassen genererer CSS-regler basert på stilen definert i HTML-elementer og skriver dem til en CSS-fil.
  */
 public class CSSGenerator {
     /**
-     * Private constructor to create a CSSGenerator instance.
+     * Privat konstruktør for å opprette en CSSGenerator-instans.
      */
     private CSSGenerator() {
     }
 
     /**
-     * Creates a new CSSGenerator instance.
+     * Oppretter en ny CSSGenerator-instans.
      *
-     * @return A new CSSGenerator instance.
+     * @return En ny CSSGenerator-instans.
      */
     public static CSSGenerator createCSSGenerator() {
         return new CSSGenerator();
     }
 
     /**
-     * Generates CSS rules from the given Body object and writes them to a CSS file.
+     * Genererer CSS-regler fra det gitte Body-objektet og skriver dem til en CSS-fil.
      *
-     * @param body The Body object containing HTML elements with style.
+     * @param body Body-objektet som inneholder HTML-elementer med stil.
      */
+
     public static void cssWriter(Body body) {
         ArrayList<String> cssRules = new ArrayList<>();
         HashSet<String> globalStyles = new HashSet<>();
 
-        // Start recursive CSS generation from the body elements
         for (Element element : body.getElements()) {
             cssWriterRecursive(element, cssRules, globalStyles);
         }
@@ -59,7 +59,7 @@ public class CSSGenerator {
             }
 
             writer.close();
-            System.out.println("CSS generated and stored in style.css");
+            System.out.println("CSS generert og lagret i style.css");
         } catch (IOException e) {
             System.out.println("Error writing CSS to file: " + e.getMessage());
         }
@@ -105,7 +105,6 @@ public class CSSGenerator {
             }
         }
 
-        // Recurse over the child elements
         for (Element child : element.getChildren()) {
             cssWriterRecursive(child, cssRules, globalStyles);
         }

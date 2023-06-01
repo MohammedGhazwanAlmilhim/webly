@@ -80,7 +80,7 @@ public class Webly {
             writeCSS();
             compileAll();
             Server.openWebpage(new URI("http://localhost:" + port + "/" + FILENAME));
-            System.out.println("Opened webpage in browser at http://localhost:" + port + "/" + FILENAME);
+            System.out.println("Åpnet nettsiden i nettleseren på: http://localhost:" + port + "/" + FILENAME);
             server.StartServer(port);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
